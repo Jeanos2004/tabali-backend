@@ -136,8 +136,8 @@ CACHES = {
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
-        'rest_framework.authentication.SessionAuthentication',  # Pour l'interface DRF
+        'rest_framework.authentication.SessionAuthentication',  # Pour l'interface DRF (connexion browser)
+        'rest_framework_simplejwt.authentication.JWTAuthentication',  # Pour les APIs
     ],
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.AllowAny',  # Public pour développement
@@ -155,8 +155,8 @@ REST_FRAMEWORK = {
         'rest_framework.renderers.BrowsableAPIRenderer',  # Interface web avec formulaires
     ],
     # Configuration pour améliorer l'interface DRF
-    'FORM_METHOD_OVERRIDE': 'POST',  # Force les formulaires HTML
-    'FORM_CONTENT_OVERRIDE': 'application/json',  # Mais garde JSON en interne
+    'FORM_METHOD_OVERRIDE': 'POST',
+    'FORM_CONTENT_OVERRIDE': 'application/json',
     'URL_FIELD_NAME': 'url',
     'NUM_PROXIES': None,
 }

@@ -11,24 +11,24 @@ from django.conf.urls.static import static
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView, SpectacularRedocView
 
 urlpatterns = [
-    # Administration Django
+    # Interface d'administration Django
     path('admin/', admin.site.urls),
     
-    # Documentation API
-    path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
-    path('api/docs/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
-    path('api/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
-    
-    # APIs des applications
+    # APIs principales
     path('api/v1/auth/', include('accounts.urls')),
     path('api/v1/services/', include('services.urls')),
     path('api/v1/reservations/', include('reservations.urls')),
-    path('api/v1/payments/', include('billing.urls')),
+    path('api/v1/billing/', include('billing.urls')),
     path('api/v1/messaging/', include('messaging.urls')),
     path('api/v1/reviews/', include('reviews.urls')),
     path('api/v1/historiques/', include('historiques.urls')),
     
-    # API Rest Framework (pour l'authentification web)
+    # Documentation API (Swagger/OpenAPI)
+    path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
+    path('api/docs/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
+    path('api/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
+    
+    # Authentification DRF (pour l'interface browsable)
     path('api-auth/', include('rest_framework.urls')),
 ]
 
@@ -40,4 +40,4 @@ if settings.DEBUG:
 # Configuration de l'interface d'administration
 admin.site.site_header = "Tabali Platform Administration"
 admin.site.site_title = "Tabali Admin"
-admin.site.index_title = "Bienvenue dans l'administration Tabali"
+admin.site.index_title = "Tableau de bord administrateur"

@@ -91,7 +91,7 @@ class ClientProfileAdmin(admin.ModelAdmin):
     
     fieldsets = (
         ('Informations utilisateur', {
-            'fields': ('user_link', 'user_email')
+            'fields': ('user',)
         }),
         ('Préférences', {
             'fields': ('preferred_radius',)
@@ -141,7 +141,7 @@ class ProviderProfileAdmin(admin.ModelAdmin):
     
     fieldsets = (
         ('Informations utilisateur', {
-            'fields': ('user_link', 'user_email')
+            'fields': ('user',)
         }),
         ('Informations professionnelles', {
             'fields': ('company_name', 'siret', 'description')

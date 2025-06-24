@@ -183,18 +183,19 @@ class UserSerializer(serializers.ModelSerializer):
 class ClientProfileSerializer(serializers.ModelSerializer):
     """Serializer pour les profils clients."""
     user_details = UserSerializer(source='user', read_only=True, label="Informations utilisateur")
-    preferences_display = serializers.CharField(
-        source='preferences',
+    total_spent_display = serializers.CharField(
+        source='total_spent',
         read_only=True,
-        label="Préférences"
+        label="Total dépensé"
     )
 
     class Meta:
         model = ClientProfile
-        fields = ['id', 'user', 'user_details', 'adresse', 'preferences', 'preferences_display']
+        fields = ['id', 'user', 'user_details', 'preferred_radius', 'total_reservations', 'total_spent', 'total_spent_display']
         extra_kwargs = {
-            'adresse': {'label': 'Adresse', 'help_text': 'Adresse complète du client'},
-            'preferences': {'label': 'Préférences', 'help_text': 'Préférences du client (JSON)'}
+            'preferred_radius': {'label': 'Rayon de recherche (km)', 'help_text': 'Distance maximale pour chercher des prestataires'},
+            'total_reservations': {'label': 'Nombre de réservations', 'read_only': True},
+            'total_spent': {'label': 'Total dépensé (€)', 'read_only': True}
         }
 
 
@@ -205,24 +206,33 @@ class ProviderProfileSerializer(serializers.ModelSerializer):
         label="Nombre de services",
         help_text="Nombre total de services proposés"
     )
+    rating_display = serializers.CharField(
+        source='average_rating',
+        read_only=True,
+        label="Note moyenne"
+    )
     
     class Meta:
         model = ProviderProfile
         fields = [
-            'id', 'user', 'user_details', 'business_name', 'description',
-            'adresse', 'ville', 'code_postal', 'siret', 'services_count'
+            'id', 'user', 'user_details', 'company_name', 'siret', 'description',
+            'hourly_rate', 'service_radius', 'is_available', 'is_verified',
+            'average_rating', 'rating_display', 'total_jobs', 'services_count'
         ]
         extra_kwargs = {
-            'business_name': {'label': 'Nom de l\'entreprise'},
+            'company_name': {'label': 'Nom de l\'entreprise'},
+            'siret': {'label': 'SIRET', 'help_text': 'Numéro SIRET de l\'entreprise'},
             'description': {
                 'label': 'Description',
                 'help_text': 'Décrivez votre activité',
                 'style': {'base_template': 'textarea.html'}
             },
-            'adresse': {'label': 'Adresse'},
-            'ville': {'label': 'Ville'},
-            'code_postal': {'label': 'Code postal'},
-            'siret': {'label': 'SIRET', 'help_text': 'Numéro SIRET de l\'entreprise'}
+            'hourly_rate': {'label': 'Tarif horaire (€)'},
+            'service_radius': {'label': 'Rayon d\'intervention (km)'},
+            'is_available': {'label': 'Disponible actuellement'},
+            'is_verified': {'label': 'Prestataire vérifié', 'read_only': True},
+            'average_rating': {'label': 'Note moyenne', 'read_only': True},
+            'total_jobs': {'label': 'Nombre d\'interventions', 'read_only': True}
         }
 
     def get_services_count(self, obj):
