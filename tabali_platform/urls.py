@@ -8,9 +8,13 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from django.views.generic import RedirectView
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView, SpectacularRedocView
 
 urlpatterns = [
+    # Page d'accueil et interface utilisateur
+    path('', include('pages.urls', namespace='pages')),
+    
     # Interface d'administration Django
     path('admin/', admin.site.urls),
     

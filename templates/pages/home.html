@@ -1,0 +1,64 @@
+<!-- templates/pages/home.html -->
+{% extends 'base.html' %}
+
+{% block title %}Connexion - Tabali{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+        <div class="card p-4">
+            <div class="text-center mb-4">
+                <h2 class="mb-3">Bienvenue sur Tabali</h2>
+                <p class="text-muted">Connectez-vous pour accéder à votre espace personnel</p>
+            </div>
+            
+            {% if not user.is_authenticated %}
+            <form method="post" action="{% url 'pages:home' %}">
+                {% csrf_token %}
+                {% if messages %}
+                <div class="mb-3">
+                    {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}">
+                        {{ message }}
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+                <div class="mb-3">
+                    <label for="username" class="form-label">Nom d'utilisateur</label>
+                    <input type="text" class="form-control" id="username" name="username" required 
+                           placeholder="Entrez votre nom d'utilisateur">
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Mot de passe</label>
+                    <input type="password" class="form-control" id="password" name="password" required 
+                           placeholder="Entrez votre mot de passe">
+                </div>
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-primary btn-lg">
+                        <i class="fas fa-sign-in-alt me-2"></i> Se connecter
+                    </button>
+                </div>
+                <div class="text-center mt-3">
+                    <a href="#" class="text-decoration-none">Mot de passe oublié ?</a>
+                </div>
+            </form>
+            {% else %}
+                <div class="text-center">
+                    <h4>Bonjour, {{ user.username }} !</h4>
+                    <p>Vous êtes déjà connecté.</p>
+                    <a href="{% url 'pages:dashboard' %}" class="btn btn-primary">
+                        Aller au tableau de bord <i class="fas fa-arrow-right ms-2"></i>
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+        
+        <div class="text-center mt-4">
+            <p class="text-muted">Vous n'avez pas de compte ? 
+                <a href="#" class="text-decoration-none">Contactez l'administrateur</a>
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}

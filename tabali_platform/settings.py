@@ -66,6 +66,7 @@ LOCAL_APPS = [
     'messaging',
     'reviews',
     'historiques',
+    'pages',  # Added our new pages app
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -94,7 +95,7 @@ ROOT_URLCONF = 'tabali_platform.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],  
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
