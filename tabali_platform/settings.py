@@ -8,6 +8,10 @@ Optimisé pour le développement collaboratif et la production.
 from pathlib import Path
 import os
 from datetime import timedelta
+from django.core.wsgi import get_wsgi_application
+
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'tabali_platform.settings')
+application = get_wsgi_application()
 
 # Configuration simple sans decouple pour le développement
 def config(key, default=None, cast=None):

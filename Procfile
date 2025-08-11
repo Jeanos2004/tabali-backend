@@ -1,1 +1,1 @@
-web: gunicorn tabali_platform.wsgi:application
+web: gunicorn tabali_platform.wsgi:application --log-file -
