@@ -5,10 +5,16 @@ Configuration modulaire professionnelle pour une plateforme de services en ligne
 Optimisé pour le développement collaboratif et la production.
 """
 
-from pathlib import Path
 import os
+from pathlib import Path
 from datetime import timedelta
+import dj_database_url  # Ajoutez cette ligne
 from django.core.wsgi import get_wsgi_application
+import sys
+
+if 'migrate' not in sys.argv and 'makemigrations' not in sys.argv:
+    import django
+    django.setup()
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'tabali_platform.settings')
 application = get_wsgi_application()
@@ -116,10 +122,9 @@ WSGI_APPLICATION = 'tabali_platform.wsgi.application'
 # ==============================================================================
 
 # Utilisation de SQLite par défaut pour le développement
-import dj_database_url
 DATABASES = {
     'default': dj_database_url.config(
-        default=os.getenv('DATABASE_URL'),
+        default=config('DATABASE_URL', default='sqlite:///db.sqlite3'),
         conn_max_age=600
     )
 }
