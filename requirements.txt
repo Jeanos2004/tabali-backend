@@ -34,7 +34,7 @@ darkdetect==0.8.0
 diff-match-patch==20241021
 dj-database-url==3.0.0
 dj-rest-auth==7.0.1
-Django==5.1.5
+Django==4.2.16
 django-allauth==65.4.1
 django-celery-beat==2.7.0
 django-celery-results==2.5.1
