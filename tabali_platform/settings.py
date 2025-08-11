@@ -6,18 +6,13 @@ Optimisé pour le développement collaboratif et la production.
 """
 
 import os
+import sys
 from pathlib import Path
 from datetime import timedelta
-import dj_database_url  # Ajoutez cette ligne
-from django.core.wsgi import get_wsgi_application
-import sys
+import dj_database_url
 
-if 'migrate' not in sys.argv and 'makemigrations' not in sys.argv:
-    import django
-    django.setup()
-
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'tabali_platform.settings')
-application = get_wsgi_application()
+# Build paths inside the project like this: BASE_DIR / 'subdir'.
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Configuration simple sans decouple pour le développement
 def config(key, default=None, cast=None):
@@ -30,9 +25,6 @@ def config(key, default=None, cast=None):
             return str(value).lower() in ('true', '1', 'yes', 'on')
         return cast(value)
     return value
-
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
 
 # ==============================================================================
 # CORE SETTINGS
