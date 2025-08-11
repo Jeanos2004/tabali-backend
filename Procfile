@@ -1,1 +1,1 @@
-web: gunicorn tabali_platform.wsgi
+web: gunicorn tabali_platform.wsgi:application
