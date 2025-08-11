@@ -1,0 +1,1 @@
+web: gunicorn tabali_platform.wsgi
